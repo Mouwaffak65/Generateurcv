@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>منحة لايف | CV étudiant </title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #d4e2ed 0%, #c2d6e8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        /* decorative background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.5) 0%, transparent 30%),
+                              radial-gradient(circle at 80% 70%, rgba(200,230,250,0.5) 0%, transparent 35%);
+            z-index: -2;
+        }
+
+        .bg-pattern::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* header responsive */
+        .header-responsive {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(12px);
+            padding: 10px 25px;
+            border-radius: 60px;
+            box-shadow: 0 8px 25px rgba(0,30,60,0.15);
+            border: 1px solid rgba(255,255,255,0.7);
+            flex-wrap: wrap;
+        }
+
+        .logo-brand i {
+            font-size: 2.2rem;
+            color: #0f3f5c;
+        }
+
+        .logo-brand span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #07273a;
+            line-height: 1.2;
+        }
+
+        .logo-brand small {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2b5779;
+            margin-right: 5px;
+        }
+
+        .screenshot-btn {
+            background: linear-gradient(145deg, #184b68, #0e3750);
+            border: none;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 15px 30px rgba(7, 48, 78, 0.4);
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.3);
+            width: fit-content;
+        }
+
+        .screenshot-btn:hover {
+            background: linear-gradient(145deg, #0f3c55, #0a2c40);
+            transform: translateY(-3px);
+        }
+
+        /* flex layout responsive */
+        .flex-panel {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* formulaire responsive */
+        .form-card {
+            flex: 1 1 400px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(15px);
+            padding: 25px 20px;
+            border-radius: 50px;
+            box-shadow: 0 25px 45px rgba(0,35,65,0.25);
+            border: 1px solid rgba(255,255,255,0.7);
+            max-height: 85vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #346f94 #cde1f0;
+        }
+
+        .form-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .form-card::-webkit-scrollbar-track {
+            background: #cde1f0;
+            border-radius: 10px;
+        }
+        .form-card::-webkit-scrollbar-thumb {
+            background: #346f94;
+            border-radius: 10px;
+        }
+
+        .form-card h2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #104469;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #529dbb;
+            padding-bottom: 12px;
+            position: sticky;
+            top: 0;
+            background: inherit;
+            backdrop-filter: blur(5px);
+            z-index: 5;
+        }
+
+        /* photo upload */
+        .photo-zone {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: rgba(200,222,240,0.4);
+            padding: 15px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+
+        .photo-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+            background: #bfd9f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        .photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-circle i {
+            font-size: 3.2rem;
+            color: #1d4e74;
+        }
+
+        .photo-btn {
+            background: #1e6188;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            gap: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        /* grille responsive */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .input-field {
+            margin-bottom: 18px;
+        }
+
+        .input-field label {
+            display: block;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1a4562;
+            margin-bottom: 5px;
+        }
+
+        .input-field input, .input-field textarea, .input-field select {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid rgba(75, 135, 180, 0.25);
+            border-radius: 40px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .input-field input:focus, .input-field textarea:focus {
+            border-color: #1f6f9c;
+            outline: none;
+            background: white;
+        }
+
+        /* sections dynamiques */
+        .dynamic-section {
+            background: rgba(250,250,255,0.5);
+            border-radius: 35px;
+            padding: 20px 18px;
+            margin: 25px 0;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .section-head {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f3f58;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .array-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .array-row input, .array-row select {
+            flex: 1 1 150px;
+            padding: 10px 15px;
+            border-radius: 40px;
+            border: 1px solid #a5c4dc;
+            background: white;
+        }
+
+        .remove-btn {
+            background: #d14545;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .add-btn {
+            background: transparent;
+            border: 2px dashed #256f98;
+            color: #1b5377;
+            padding: 10px 20px;
+            border-radius: 60px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        /* themes selector */
+        .theme-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0 10px;
+        }
+
+        .theme-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .theme-dot.active-theme {
+            transform: scale(1.12);
+            border-color: #ffd966;
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.5);
+        }
+
+        /* preview section */
+        .preview-area {
+            flex: 1 1 430px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cv-box {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 55px 55px 45px 45px;
+            box-shadow: 0 30px 60px rgba(5, 40, 65, 0.35);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.2s;
+        }
+
+        .cv-inner {
+            padding: 30px 25px;
+            transition: background 0.2s, color 0.2s;
+            min-height: 680px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* watermark (filigrane) */
+        .watermark {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(0,0,0,0.15);
+            font-weight: 600;
+            letter-spacing: 1px;
+            pointer-events: none;
+            z-index: 3;
+            transform: rotate(-2deg);
+            backdrop-filter: blur(2px);
+            padding: 4px;
+            width: fit-content;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.25);
+            border-radius: 60px;
+            white-space: nowrap;
+        }
+
+        .watermark i {
+            margin: 0 5px;
+        }
+
+        /* CV style */
+        .cv-header-photo {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .cv-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+            background: #b9d6f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 12px 22px rgba(0,20,40,0.15);
+        }
+
+        .cv-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cv-avatar i {
+            font-size: 4rem;
+            color: #194f73;
+        }
+
+        .cv-name {
+            flex: 1;
+        }
+
+        .cv-name h1 {
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .cv-name h3 {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .cv-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 25px;
+            margin: 15px 0;
+        }
+
+        .cv-contact span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cv-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0.25;
+            margin: 18px 0;
+        }
+
+        .cv-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            border-bottom: 2px dashed currentColor;
+            padding-bottom: 6px;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            background: rgba(128,128,128,0.15);
+            padding: 5px 18px;
+            border-radius: 40px;
+            margin: 3px;
+            font-size: 0.95rem;
+        }
+
+        .lang-item, .edu-item {
+            margin-right: 20px;
+            margin-bottom: 8px;
+        }
+
+        .lang-level {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        /* color themes */
+        .theme-coral .cv-inner { background: #fef3f0; color: #632e3c; }
+        .theme-coral .cv-divider { background: #c95f6b; }
+        .theme-coral .cv-avatar { background: #fad5d0; }
+
+        .theme-sage .cv-inner { background: #edf4ed; color: #1d5545; }
+        .theme-sage .cv-divider { background: #3f886b; }
+        .theme-sage .cv-avatar { background: #cae3d8; }
+
+        .theme-sky .cv-inner { background: #e8f2fa; color: #05445e; }
+        .theme-sky .cv-divider { background: #2a7fa2; }
+        .theme-sky .cv-avatar { background: #c2dff5; }
+
+        .theme-mocha .cv-inner { background: #f3ede5; color: #583c2b; }
+        .theme-mocha .cv-divider { background: #ad6e51; }
+        .theme-mocha .cv-avatar { background: #ebd6c5; }
+
+        .theme-lavender .cv-inner { background: #f3effa; color: #382e5c; }
+        .theme-lavender .cv-divider { background: #7b699c; }
+        .theme-lavender .cv-avatar { background: #e1d4f0; }
+
+        /* footer responsive */
+        .footer-note {
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(5px);
+            padding: 10px 30px;
+            border-radius: 60px;
+            color: #1a4c6b;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .flex-panel {
+                flex-direction: column-reverse;
+            }
+            .form-card {
+                max-height: none;
+            }
+            .watermark {
+                font-size: 0.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div class="main-wrapper">
+    <!-- header -->
+    <div class="header-responsive">
+        <div class="logo-brand">
+            <i class="fas fa-graduation-cap"></i>
+            <span>منحة لايف <small>| CV étudiant</small></span>
+        </div>
+        <button class="screenshot-btn" id="captureBtn">
+            <i class="fas fa-camera"></i> حفظ الصورة
+        </button>
+    </div>
+
+    <!-- main flex panel -->
+    <div class="flex-panel">
+        <!-- formulaire -->
+        <div class="form-card">
+            <h2><i class="fas fa-pencil-alt"></i> بيانات الطالب</h2>
+            <!-- photo -->
+            <div class="photo-zone">
+                <div class="photo-circle" id="photoPreview">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <label class="photo-btn" for="photoInput"><i class="fas fa-cloud-upload-alt"></i> رفع صورة</label>
+                <input type="file" id="photoInput" accept="image/*">
+            </div>
+
+            <div class="grid-2">
+                <div class="input-field">
+                    <label>👤 الإسم الكامل</label>
+                    <input type="text" id="fullName" value="نورة عبدالعزيز السعد">
+                </div>
+                <div class="input-field">
+                    <label>📅 تاريخ الميلاد</label>
+                    <input type="text" id="birthDate" value="٢٠٠٣/٠٨/١٥">
+                </div>
+                <div class="input-field">
+                    <label>🌍 الجنسية</label>
+                    <input type="text" id="nationality" value="سعودية">
+                </div>
+                <div class="input-field">
+                    <label>✉️ البريد</label>
+                    <input type="email" id="email" value="nora.s@student.edu">
+                </div>
+                <div class="input-field">
+                    <label>📞 الهاتف</label>
+                    <input type="text" id="phone" value="+966 55 123 4567">
+                </div>
+                <div class="input-field">
+                    <label>🏠 العنوان</label>
+                    <input type="text" id="address" value="الرياض، السعودية">
+                </div>
+            </div>
+
+            <!-- formations dynamiques -->
+            <div class="dynamic-section">
+                <div class="section-head"><i class="fas fa-university"></i> التكوين</div>
+                <div id="formationsContainer"></div>
+                <button class="add-btn" id="addFormationBtn"><i class="fas fa-plus"></i> إضافة تكوين</button>
+            </div>
+
+            <!-- langues dynamiques -->
+            <div class="dynamic-section">
+                <div class="section-head"><i class="fas fa-language"></i> اللغات</div>
+                <div id="languagesContainer"></div>
+                <button class="add-btn" id="addLanguageBtn"><i class="fas fa-plus"></i> إضافة لغة</button>
+            </div>
+
+            <div class="input-field">
+                <label>⚡ المهارات (مفصولة بفواصل)</label>
+                <input type="text" id="skills" value="بحث, تحليل, واجهات, قيادة, لغة عربية">
+            </div>
+            <div class="input-field">
+                <label>📄 نبذة عني</label>
+                <textarea id="summary" rows="2">طالبة سنة ثالثة تقنيات معلومات، مهتمة بتجربة المستخدم والبحث الميداني. أسعى للتطوير المستمر.</textarea>
+            </div>
+
+            <!-- thèmes -->
+            <div style="margin: 25px 0 5px;">
+                <label style="font-weight: 800; font-size: 1.2rem;"><i class="fas fa-palette"></i> اختر الثيم</label>
+                <div class="theme-container">
+                    <div class="theme-dot" data-theme="theme-sky" style="background:#e8f2fa; border:2px solid #05445e;"></div>
+                    <div class="theme-dot" data-theme="theme-coral" style="background:#fef3f0; border:2px solid #a7455a;"></div>
+                    <div class="theme-dot" data-theme="theme-sage" style="background:#edf4ed; border:2px solid #1d5545;"></div>
+                    <div class="theme-dot" data-theme="theme-mocha" style="background:#f3ede5; border:2px solid #825e48;"></div>
+                    <div class="theme-dot" data-theme="theme-lavender" style="background:#f3effa; border:2px solid #4a3c77;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- preview CV -->
+        <div class="preview-area">
+            <div class="cv-box" id="cvBox">
+                <div class="cv-inner" id="cvInner">
+                    <!-- contenu généré par JS -->
+                    <!-- watermark inside cv inner (filigrane) -->
+                    <div class="watermark">
+                        <i class="fas fa-certificate"></i> منحة لايف - générateur de CV <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-note">
+                <i class="fas fa-dragon"></i> سيرة ذاتية احترافية للطالب
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // DOM elements
+        const fullName = document.getElementById('fullName');
+        const birthDate = document.getElementById('birthDate');
+        const nationality = document.getElementById('nationality');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone');
+        const address = document.getElementById('address');
+        const skills = document.getElementById('skills');
+        const summary = document.getElementById('summary');
+        const photoInput = document.getElementById('photoInput');
+        const photoPreview = document.getElementById('photoPreview');
+        const cvInner = document.getElementById('cvInner');
+        const cvBox = document.getElementById('cvBox');
+        const themeDots = document.querySelectorAll('.theme-dot');
+        const formationsContainer = document.getElementById('formationsContainer');
+        const languagesContainer = document.getElementById('languagesContainer');
+        const addFormationBtn = document.getElementById('addFormationBtn');
+        const addLanguageBtn = document.getElementById('addLanguageBtn');
+
+        // state
+        let currentTheme = 'theme-sky';
+        let formations = [
+            { diplome: 'بكالوريوس نظم معلومات', etablissement: 'جامعة الملك سعود', annee: '٢٠٢٢ - ٢٠٢٦' }
+        ];
+        let languages = [
+            { name: 'العربية', level: 'أم' },
+            { name: 'الإنجليزية', level: 'متقدم' }
+        ];
+        let photoData = null;
+
+        // render dynamic lists
+        function renderFormations() {
+            formationsContainer.innerHTML = '';
+            formations.forEach((f, idx) => {
+                const div = document.createElement('div');
+                div.className = 'array-row';
+                div.innerHTML = `
+                    <input type="text" placeholder="الشهادة" value="${f.diplome}" data-index="${idx}" data-field="diplome">
+                    <input type="text" placeholder="المؤسسة" value="${f.etablissement}" data-index="${idx}" data-field="etablissement">
+                    <input type="text" placeholder="المدة" value="${f.annee}" data-index="${idx}" data-field="annee">
+                    <button class="remove-btn" data-index="${idx}" data-type="formation"><i class="fas fa-times"></i></button>
+                `;
+                formationsContainer.appendChild(div);
+            });
+            attachFormationListeners();
+        }
+
+        function renderLanguages() {
+            languagesContainer.innerHTML = '';
+            languages.forEach((l, idx) => {
+                const div = document.createElement('div');
+                div.className = 'array-row';
+                div.innerHTML = `
+                    <input type="text" placeholder="اللغة" value="${l.name}" data-index="${idx}" data-field="name">
+                    <select data-index="${idx}" data-field="level">
+                        <option value="أم" ${l.level === 'أم' ? 'selected' : ''}>أم</option>
+                        <option value="متقدم" ${l.level === 'متقدم' ? 'selected' : ''}>متقدم</option>
+                        <option value="متوسط" ${l.level === 'متوسط' ? 'selected' : ''}>متوسط</option>
+                        <option value="مبتدئ" ${l.level === 'مبتدئ' ? 'selected' : ''}>مبتدئ</option>
+                    </select>
+                    <button class="remove-btn" data-index="${idx}" data-type="language"><i class="fas fa-times"></i></button>
+                `;
+                languagesContainer.appendChild(div);
+            });
+            attachLanguageListeners();
+        }
+
+        function attachFormationListeners() {
+            document.querySelectorAll('#formationsContainer input').forEach(inp => {
+                inp.addEventListener('input', function(e) {
+                    const idx = this.dataset.index;
+                    const field = this.dataset.field;
+                    if (formations[idx]) {
+                        formations[idx][field] = this.value;
+                        renderPreview();
+                    }
+                });
+            });
+            document.querySelectorAll('#formationsContainer .remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = this.dataset.index;
+                    formations.splice(idx, 1);
+                    renderFormations();
+                    renderPreview();
+                });
+            });
+        }
+
+        function attachLanguageListeners() {
+            document.querySelectorAll('#languagesContainer input, #languagesContainer select').forEach(el => {
+                el.addEventListener('input', function(e) {
+                    const idx = this.dataset.index;
+                    const field = this.dataset.field;
+                    if (languages[idx]) {
+                        languages[idx][field] = this.value;
+                        renderPreview();
+                    }
+                });
+                if (el.tagName === 'SELECT') {
+                    el.addEventListener('change', function() {
+                        const idx = this.dataset.index;
+                        const field = this.dataset.field;
+                        if (languages[idx]) {
+                            languages[idx][field] = this.value;
+                            renderPreview();
+                        }
+                    });
+                }
+            });
+            document.querySelectorAll('#languagesContainer .remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = this.dataset.index;
+                    languages.splice(idx, 1);
+                    renderLanguages();
+                    renderPreview();
+                });
+            });
+        }
+
+        addFormationBtn.addEventListener('click', () => {
+            formations.push({ diplome: '', etablissement: '', annee: '' });
+            renderFormations();
+            renderPreview();
+        });
+
+        addLanguageBtn.addEventListener('click', () => {
+            languages.push({ name: '', level: 'متوسط' });
+            renderLanguages();
+            renderPreview();
+        });
+
+        // photo upload
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    photoData = ev.target.result;
+                    photoPreview.innerHTML = `<img src="${photoData}" alt="photo">`;
+                    renderPreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // generate cv html with watermark inside
+        function generateCVHTML() {
+            const name = fullName.value.trim() || 'نورة عبدالعزيز';
+            const birth = birthDate.value.trim() || '٢٠٠٣/٠٨/١٥';
+            const nation = nationality.value.trim() || 'سعودية';
+            const mail = email.value.trim() || 'nora.s@student.edu';
+            const phoneVal = phone.value.trim() || '+966 55 123 4567';
+            const addr = address.value.trim() || 'الرياض، السعودية';
+            const skillsRaw = skills.value.trim() || 'بحث, تحليل, واجهات';
+            const summaryText = summary.value.trim() || 'طالبة مهتمة بتجربة المستخدم.';
+
+            const skillsList = skillsRaw.split(',').map(s => s.trim()).filter(s => s).map(s => `<span class="skill-badge">${s}</span>`).join('');
+
+            const formationItems = formations.filter(f => f.diplome || f.etablissement).map(f =>
+                `<div class="edu-item"><i class="fas fa-diploma" style="margin-left:6px;"></i> <strong>${f.diplome || 'تخصص'}</strong> — ${f.etablissement || ''} (${f.annee || ''})</div>`
+            ).join('');
+
+            const langItems = languages.filter(l => l.name).map(l =>
+                `<div class="lang-item"><i class="fas fa-globe"></i> ${l.name} <span class="lang-level">${l.level}</span></div>`
+            ).join('');
+
+            const photoHtml = photoData ? `<img src="${photoData}" alt="photo">` : `<i class="fas fa-user-graduate"></i>`;
+
+            return `
+                <div class="cv-header-photo">
+                    <div class="cv-avatar">${photoHtml}</div>
+                    <div class="cv-name">
+                        <h1>${name}</h1>
+                        <h3><i class="fas fa-calendar-alt"></i> ${birth} · ${nation}</h3>
+                    </div>
+                </div>
+
+                <div class="cv-contact">
+                    <span><i class="fas fa-envelope"></i> ${mail}</span>
+                    <span><i class="fas fa-phone"></i> ${phoneVal}</span>
+                    <span><i class="fas fa-map-marker-alt"></i> ${addr}</span>
+                </div>
+
+                <div class="cv-divider"></div>
+
+                <div>
+                    <div class="cv-section-title"><i class="fas fa-user-graduate"></i> نبذة</div>
+                    <p style="margin-right:15px;">${summaryText}</p>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <div class="cv-section-title"><i class="fas fa-university"></i> التكوين</div>
+                    ${formationItems || '<p style="margin-right:20px;">—</p>'}
+                </div>
+
+                <div style="margin-top:20px;">
+                    <div class="cv-section-title"><i class="fas fa-language"></i> اللغات</div>
+                    <div style="margin-right:15px;">${langItems || '<p>—</p>'}</div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <div class="cv-section-title"><i class="fas fa-cogs"></i> المهارات</div>
+                    <div style="margin-right:10px;">${skillsList}</div>
+                </div>
+            `;
+        }
+
+        function renderPreview() {
+            // générer le contenu principal
+            const mainContent = generateCVHTML();
+            // on garde le watermark qui est déjà dans cvInner, mais on remplace le contenu avant ?
+            // On doit préserver le watermark. On va injecter le html en premier, puis remettre le watermark.
+            // On utilise un wrapper.
+            const watermarkElement = cvInner.querySelector('.watermark');
+            cvInner.innerHTML = mainContent;
+            // Reappend or create watermark
+            const wm = document.createElement('div');
+            wm.className = 'watermark';
+            wm.innerHTML = '<i class="fas fa-certificate"></i> منحة لايف - générateur de CV <i class="fas fa-heart"></i>';
+            cvInner.appendChild(wm);
+
+            // apply theme
+            cvBox.classList.remove('theme-sky', 'theme-coral', 'theme-sage', 'theme-mocha', 'theme-lavender');
+            cvBox.classList.add(currentTheme);
+        }
+
+        // theme selection
+        themeDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const theme = this.dataset.theme;
+                currentTheme = theme;
+                themeDots.forEach(d => d.classList.remove('active-theme'));
+                this.classList.add('active-theme');
+                renderPreview();
+            });
+        });
+
+        // input listeners
+        const inputs = [fullName, birthDate, nationality, email, phone, address, skills, summary];
+        inputs.forEach(inp => inp.addEventListener('input', renderPreview));
+
+        // screenshot
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            html2canvas(document.getElementById('cvBox'), {
+                scale: 1.9,
+                backgroundColor: null,
+                logging: false,
+                allowTaint: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `etudiant-${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(console.error);
+        });
+
+        // init
+        renderFormations();
+        renderLanguages();
+        renderPreview();
+        // active theme default
+        themeDots.forEach(d => { if(d.dataset.theme === 'theme-sky') d.classList.add('active-theme'); });
+    })();
+</script>
+</body>
+</html>
